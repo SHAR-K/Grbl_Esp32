@@ -33,6 +33,14 @@ const char* const GRBL_VERSION_BUILD = "20211103";
 #include <Preferences.h>
 
 #include <driver/timer.h>
+//我的--------------------
+
+#include "buzzer.h"
+#include "motionsensor.h"
+#include "flame.h"
+#include "ADXL345.h"
+
+
 
 // Define the Grbl system include files. NOTE: Do not alter organization.
 #include "Config.h"

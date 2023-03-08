@@ -2,7 +2,7 @@
 
 std::map<ExecAlarm, const char*> AlarmNames = {
     { ExecAlarm::None, "None"},
-    { ExecAlarm::HardLimit, "Hard Limit"},
+    { ExecAlarm::HardLimit, "Hard ----Limit"},
     { ExecAlarm::SoftLimit, "Soft Limit"},
     { ExecAlarm::AbortCycle, "Abort Cycle"},
     { ExecAlarm::ProbeFailInitial, "Probe Fail Initial"},
@@ -12,4 +12,5 @@ std::map<ExecAlarm, const char*> AlarmNames = {
     { ExecAlarm::HomingFailPulloff, "Homing Fail Pulloff"},
     { ExecAlarm::HomingFailApproach, "Homing Fail Approach"},
     { ExecAlarm::SpindleControl, "Spindle Control"},
+    { ExecAlarm::MOTION, "warning motion "},
 };

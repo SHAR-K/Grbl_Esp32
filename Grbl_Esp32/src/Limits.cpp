@@ -271,11 +271,14 @@ void limits_init() {
             uint8_t pin;
             if ((pin = limit_pins[axis][gang_index]) != UNDEFINED_PIN) {
                 pinMode(pin, mode);
+ //               grbl_msg_sendf(CLIENT_ALL, MsgLevel::Info, "pppppppp%d  mode%d",pin,mode);
                 limit_mask |= bit(axis);
                 if (hard_limits->get()) {
                     attachInterrupt(pin, isr_limit_switches, CHANGE);
+ //                   grbl_msg_sendf(CLIENT_ALL, MsgLevel::Info, "get limit pin");
                 } else {
                     detachInterrupt(pin);
+ //                   grbl_msg_sendf(CLIENT_ALL, MsgLevel::Info, "unnnnnnnnnget limit pin");
                 }
 
                 if (limit_sw_queue == NULL) {
@@ -364,13 +367,14 @@ void limits_soft_check(float* target) {
 // this is the task
 void limitCheckTask(void* pvParameters) {
     while (true) {
+        grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "出事啦！！！！！！！");
         int evt;
         xQueueReceive(limit_sw_queue, &evt, portMAX_DELAY);  // block until receive queue
         vTaskDelay(DEBOUNCE_PERIOD / portTICK_PERIOD_MS);    // delay a while
         AxisMask switch_state;
         switch_state = limits_get_state();
         if (switch_state) {
-            grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Debug, "Limit Switch State %08d", switch_state);
+            grbl_msg_sendf(CLIENT_SERIAL, MsgLevel::Info, "Limit Switch State %08d", switch_state);
             mc_reset();                                // Initiate system kill.
             sys_rt_exec_alarm = ExecAlarm::HardLimit;  // Indicate hard limit critical event
         }

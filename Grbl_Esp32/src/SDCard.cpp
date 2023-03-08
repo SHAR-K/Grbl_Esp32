@@ -129,6 +129,8 @@ uint32_t sd_get_current_line_number() {
 
 SDState sd_state = SDState::Idle;
 
+SPIClass SPI2(HSPI);
+
 SDState get_sd_state(bool refresh) {
     if (SDCARD_DET_PIN != UNDEFINED_PIN) {
         if (digitalRead(SDCARD_DET_PIN) != SDCARD_DET_VAL) {
@@ -151,7 +153,7 @@ SDState get_sd_state(bool refresh) {
     sd_state = SDState::NotPresent;
     //using default value for speed ? should be parameter
     //refresh content if card was removed
-    if (SD.begin((GRBL_SPI_SS == -1) ? SS : GRBL_SPI_SS, SPI, GRBL_SPI_FREQ, "/sd", 2)) {
+    if (SD.begin((GRBL_SPI_SS == -1) ? SS : GRBL_SPI_SS, SPI2, GRBL_SPI_FREQ, "/sd", 2)) {
         if (SD.cardSize() > 0) {
             sd_state = SDState::Idle;
         }

@@ -30,23 +30,30 @@
 extern uint8_t n_homing_locate_cycle;
 
 // Initialize the limits module
+//初始化限位模块
 void limits_init();
 
 // Disables hard limits.
+//关闭硬限位
 void limits_disable();
 
 // Returns limit state as a bit-wise uint8 variable.
+// 返回限位状态
 AxisMask limits_get_state();
 
 // Perform one portion of the homing cycle based on the input settings.
+// 回零位限位
 void limits_go_home(uint8_t cycle_mask);
 
 // Check for soft limit violations
+// 检查软限位
 void limits_soft_check(float* target);
 
+// 限位中断开关
 void isr_limit_switches();
 
 // A task that runs after a limit switch interrupt.
+//中断后开线程
 void limitCheckTask(void* pvParameters);
 
 float limitsMaxPosition(uint8_t axis);
@@ -56,6 +63,7 @@ float limitsMinPosition(uint8_t axis);
 bool limitsCheckTravel(float* target);
 
 // check if a switch has been defined
+// 检查限位是否被定义
 bool limitsSwitchDefined(uint8_t axis, uint8_t gang_index);
 
 void limitsCheckSoft(float* target);

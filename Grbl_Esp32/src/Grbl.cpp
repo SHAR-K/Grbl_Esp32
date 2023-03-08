@@ -42,6 +42,13 @@ void grbl_init() {
     stepper_init();   // Configure stepper pins and interrupt timers
     system_ini();     // Configure pinout pins and pin-change interrupt (Renamed due to conflict with esp32 files)
     init_motors();
+
+    //-----------LC--INIT--------------
+    buzzer_init();
+    FlameSensor_init();
+    initMotionSensor(); 
+    //-----------LC--INIT--------------
+
     memset(sys_position, 0, sizeof(sys_position));  // Clear machine position.
     machine_init();                                 // weak definition in Grbl.cpp does nothing
     // Initialize system state.
@@ -99,6 +106,9 @@ static void reset_variables() {
     coolant_init();
     limits_init();
     probe_init();
+
+
+
     plan_reset();  // Clear block buffer and planner variables
     st_reset();    // Clear stepper subsystem variables
     // Sync cleared gcode and planner positions to current system position.

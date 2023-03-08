@@ -137,6 +137,9 @@ void protocol_main_loop() {
     // ---------------------------------------------------------------------------------
     int c;
     for (;;) {
+    //  flameSensorLoop();
+    //motionSensorLoop();
+
 #ifdef ENABLE_SD_CARD
         if (SD_ready_next) {
             char fileLine[255];
@@ -198,6 +201,7 @@ void protocol_main_loop() {
                 motors_set_disable(true);
             }
         }
+    
     }
     return; /* Never reached */
 }
